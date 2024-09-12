@@ -12,6 +12,14 @@ struct ContentView: View {
     @State private var numbersOfPeople = 2
     @State private var tipPercentage = 20
     
+    var isTipPercentage0 : Bool{
+        if tipPercentage == 0{
+            return true
+        }
+        return false
+    }
+    
+    
     // FocusState = Handles focus input
     @FocusState private var amountIsFocused: Bool
     
@@ -62,7 +70,7 @@ struct ContentView: View {
                         // pick the amount of people between  (2 to 100)
                         ForEach(2..<100) {
                             Text("\($0) people") // show amount of people options
-                            
+                                
                         }
                     } // You can have the Picker in the main page or add pickerStyle(.navigationLink) to take you to a different page to select your option
                     .pickerStyle(.navigationLink)
@@ -92,11 +100,13 @@ struct ContentView: View {
                         Text("Tip")
                         Spacer()
                         Text(tipPercentage, format: .percent)
+                            .foregroundStyle(isTipPercentage0 ? .red: .blue)
                     }
                     HStack{
                         Text("Total + Tip")
                         Spacer()
                         Text(totalPlusTip, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                            .foregroundStyle(isTipPercentage0 ? .red: .blue)
                         
                     }
 
